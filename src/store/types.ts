@@ -9,12 +9,20 @@ export interface QuizQuestion {
   incorrect_answers: string[]
 }
 
+export interface QuestionAnswer {
+  questionIndex: number
+  correct: boolean
+}
+
 export interface QuizQuestionList {
   results: QuizQuestion[]
 }
 
 export interface ApplicationState {
   quizQuestionList: QuizQuestion[]
+  questionsQuantity: number
+  answers: QuestionAnswer[]
+  difficulty: string
   currentQuestionIndex: number
   score: number
   loading: boolean
@@ -31,6 +39,16 @@ export interface LoadQuizSuccess extends Action {
 
 export interface LoadQuizError extends Action {
   type: 'getQuizQuestionsError'
+}
+
+export interface SetDifficulty extends Action {
+  type: 'setDifficulty'
+  difficulty: string
+}
+
+export interface UpdateQuestionAnswer extends Action {
+  type: 'updateQuestionAnswer'
+  answer: QuestionAnswer
 }
 
 export interface UpdateScore extends Action {
@@ -50,6 +68,8 @@ export type ApplicationAction =
   | LoadQuizRequest
   | LoadQuizSuccess
   | LoadQuizError
+  | SetDifficulty
+  | UpdateQuestionAnswer
   | UpdateScore
   | SetNextQuestion
   | RestartGame

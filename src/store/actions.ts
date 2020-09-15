@@ -1,8 +1,11 @@
 import {
   QuizQuestion,
+  QuestionAnswer,
   LoadQuizRequest,
   LoadQuizSuccess,
   LoadQuizError,
+  SetDifficulty,
+  UpdateQuestionAnswer,
   SetNextQuestion,
   UpdateScore,
   RestartGame
@@ -21,6 +24,18 @@ export const loadQuizSuccess = (
 
 export const loadQuizError = (): LoadQuizError => ({
   type: 'getQuizQuestionsError'
+})
+
+export const updateQuestionAnswer = (
+  answer: QuestionAnswer
+): UpdateQuestionAnswer => ({
+  type: 'updateQuestionAnswer',
+  answer
+})
+
+export const setDifficulty = (difficulty: string): SetDifficulty => ({
+  type: 'setDifficulty',
+  difficulty
 })
 
 export const setNextQuestion = (): SetNextQuestion => ({

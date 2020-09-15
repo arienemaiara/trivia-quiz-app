@@ -34,8 +34,10 @@ export default function App() {
   }, [])
 
   return (
-    <ThemeProvider theme={lightTheme}>
-      <MainNavigator />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={lightTheme}>
+        <MainNavigator />
+      </ThemeProvider>
+    </Provider>
   )
 }

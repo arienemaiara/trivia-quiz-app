@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { ThemeContext } from 'styled-components'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { ThemeContext } from 'styled-components'
 import { View } from 'react-native'
 
 import { StackParamList } from '../navigation/MainNavigator'

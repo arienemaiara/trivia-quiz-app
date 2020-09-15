@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { useDispatch } from 'react-redux'
 import { View } from 'react-native'
 import { ThemeContext } from 'styled-components'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -9,14 +10,18 @@ import { SubtitleSecondary } from '../components/Texts'
 import { DefaultButton } from '../components/Buttons'
 import Star from '../components/layout/Star'
 
+import { setDifficulty } from '../store/actions'
+
 type Props = {
   navigation: StackNavigationProp<StackParamList, 'ChooseDifficulty'>
 }
 
 function ChooseDifficultScreen({ navigation }: Props) {
+  const dispatch = useDispatch()
   const themeContext = useContext(ThemeContext)
 
   const handleDifficultyPress = (level: string): void => {
+    dispatch(setDifficulty(level.toLowerCase()))
     navigation.navigate('Quiz', { level })
   }
 

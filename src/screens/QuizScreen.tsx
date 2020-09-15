@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { View } from 'react-native'
 import { ThemeContext } from 'styled-components'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -9,15 +10,37 @@ import { Wrapper, Container, QuestionBox } from '../components/Wrappers'
 import { Subtitle, SecondaryText, CustomText } from '../components/Texts'
 import { DefaultButton } from '../components/Buttons'
 
+import { ApplicationState } from '../store/types'
+import {
+  setNextQuestion,
+  updateQuestionAnswer,
+  updateScore
+} from '../store/actions'
+import { loadQuiz } from '../store/effects'
+
 type Props = {
   navigation: StackNavigationProp<StackParamList, 'Quiz'>
   route: RouteProp<StackParamList, 'Quiz'>
 }
 
 function QuizScreen({ navigation, route }: Props) {
+  const dispatch = useDispatch()
   const [difficulty, setDifficulty] = useState(route.params.level)
 
   const themeContext = useContext(ThemeContext)
+
+  const {
+    loading,
+    quizQuestionList,
+    questionsQuantity,
+    currentQuestionIndex
+  } = useSelector((state: ApplicationState) => state)
+
+  useEffect(() => {
+    dispatch(loadQuiz())
+  }, [])
+
+  const handleAnswerPress = (answer: boolean) => {}
 
   const onLastQuestionAnswered = () => {
     navigation.navigate('Result')
@@ -41,7 +64,7 @@ function QuizScreen({ navigation, route }: Props) {
             backgroundColor={themeContext.green}
             size="small"
             outline
-            onPress={() => {}}
+            onPress={() => handleAnswerPress(true)}
           />
           <DefaultButton
             text="False"
@@ -49,10 +72,12 @@ function QuizScreen({ navigation, route }: Props) {
             backgroundColor={themeContext.red}
             size="small"
             outline
-            onPress={onLastQuestionAnswered}
+            onPress={() => handleAnswerPress(false)}
           />
         </View>
-        <SecondaryText>Question: 1/10</SecondaryText>
+        <SecondaryText>
+          Question: {currentQuestionIndex}/{questionsQuantity}
+        </SecondaryText>
       </Container>
     </Wrapper>
   )

@@ -6,11 +6,14 @@ import * as quizService from '../services/quiz'
 
 type Effect = ThunkAction<any, ApplicationState, any, ApplicationAction>
 
-const loadQuiz = (): Effect => (dispatch, getState) => {
+export const loadQuiz = (): Effect => (dispatch, getState) => {
   dispatch(loadQuizRequest())
 
+  const difficulty = getState().difficulty
+  const quantity = getState().questionsQuantity
+
   return quizService
-    .fetchQuizQuestions()
-    .then((questions) => dispatch(loadQuizSuccess(questions)))
+    .fetchQuizQuestions(difficulty, quantity)
+    .then((questions) => dispatch(loadQuizSuccess(questions.results)))
     .catch(() => dispatch(loadQuizError()))
 }
