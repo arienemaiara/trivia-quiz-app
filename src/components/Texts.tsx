@@ -32,12 +32,13 @@ export const SecondaryText = styled(DefaultText)`
 `
 
 type CustomTextProps = {
-  textColor: string
+  textColor?: string
   fontSize: number
 }
 
 export const CustomText = styled.Text<CustomTextProps>`
   font-family: 'poppinsbold';
-  color: ${(props) => props.textColor};
+  color: ${(props) =>
+    props.textColor ? props.textColor : props.theme.primaryTextColor};
   font-size: ${(props) => props.fontSize + 'px'};
 `

@@ -19,6 +19,10 @@ function QuizScreen({ navigation, route }: Props) {
 
   const themeContext = useContext(ThemeContext)
 
+  const onLastQuestionAnswered = () => {
+    navigation.navigate('Result')
+  }
+
   return (
     <Wrapper>
       <Container padding={30} justifyContent="space-between">
@@ -26,7 +30,7 @@ function QuizScreen({ navigation, route }: Props) {
           <Subtitle>Entertainment: Video Games</Subtitle>
           <SecondaryText>Difficulty: {difficulty}</SecondaryText>
           <QuestionBox>
-            <CustomText textColor="#FFF" fontSize={20}>
+            <CustomText textColor="white" fontSize={20}>
               In 1993 Swedish car manufacturer Saab experimented with replacing
               the steering wheel with a joystick in a Saab 9000.
             </CustomText>
@@ -45,7 +49,7 @@ function QuizScreen({ navigation, route }: Props) {
             backgroundColor={themeContext.red}
             size="small"
             outline
-            onPress={() => {}}
+            onPress={onLastQuestionAnswered}
           />
         </View>
         <SecondaryText>Question: 1/10</SecondaryText>

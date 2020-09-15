@@ -25,3 +25,13 @@ export const QuestionBox = styled.View`
   padding: 12px;
   border-radius: 8px;
 `
+export const QuestionResult = styled.View`
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  min-height: 90px;
+  background-color: ${({ theme }) => theme.gray};
+  padding: 12px;
+  margin: 2px 0;
+  border-radius: 8px;
+`

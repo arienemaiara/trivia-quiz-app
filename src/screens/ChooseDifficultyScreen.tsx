@@ -7,6 +7,7 @@ import { StackParamList } from '../navigation/MainNavigator'
 import { Wrapper, Container } from '../components/Wrappers'
 import { SubtitleSecondary } from '../components/Texts'
 import { DefaultButton } from '../components/Buttons'
+import Star from '../components/layout/Star'
 
 type Props = {
   navigation: StackNavigationProp<StackParamList, 'ChooseDifficulty'>
@@ -19,8 +20,17 @@ function ChooseDifficultScreen({ navigation }: Props) {
     navigation.navigate('Quiz', { level })
   }
 
+  const BottomStar = () => {
+    return (
+      <View style={{ position: 'absolute', bottom: -20, right: -60 }}>
+        <Star startColor={themeContext.purple} endColor={themeContext.red} />
+      </View>
+    )
+  }
+
   return (
     <Wrapper>
+      <BottomStar />
       <Container>
         <SubtitleSecondary style={{ height: 100 }}>
           CHOOSE DIFFICULTY:
