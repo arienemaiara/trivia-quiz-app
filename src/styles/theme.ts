@@ -16,6 +16,7 @@ declare module 'styled-components' {
     purple: string
     titleSize: string
     subtitleSize: string
+    textSize: string
   }
 }
 
@@ -33,5 +34,6 @@ export const lightTheme: DefaultTheme = {
   blueLight: '#56CCF2',
   purple: '#9B51E0',
   titleSize: '32px',
-  subtitleSize: '22px'
+  subtitleSize: '22px',
+  textSize: '18px'
 }

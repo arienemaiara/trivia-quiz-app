@@ -15,7 +15,7 @@ function InitialScreen({ navigation }: Props) {
   const themeContext = useContext(ThemeContext)
 
   const handleBeginButtonPress = (): void => {
-    navigation.navigate('ChooseDifficult')
+    navigation.navigate('ChooseDifficulty')
   }
 
   return (

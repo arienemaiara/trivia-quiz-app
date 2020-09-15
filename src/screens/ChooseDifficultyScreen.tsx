@@ -9,21 +9,21 @@ import { SubtitleSecondary } from '../components/Texts'
 import { DefaultButton } from '../components/Buttons'
 
 type Props = {
-  navigation: StackNavigationProp<StackParamList, 'Initial'>
+  navigation: StackNavigationProp<StackParamList, 'ChooseDifficulty'>
 }
 
 function ChooseDifficultScreen({ navigation }: Props) {
   const themeContext = useContext(ThemeContext)
 
   const handleDifficultyPress = (level: string): void => {
-    navigation.navigate('Quiz')
+    navigation.navigate('Quiz', { level })
   }
 
   return (
     <Wrapper>
       <Container>
         <SubtitleSecondary style={{ height: 100 }}>
-          CHOOSE DEFFICULTY:
+          CHOOSE DIFFICULTY:
         </SubtitleSecondary>
         <View>
           <DefaultButton
@@ -31,21 +31,21 @@ function ChooseDifficultScreen({ navigation }: Props) {
             textColor="#FFF"
             backgroundColor={themeContext.greenLight}
             size="large"
-            onPress={() => handleDifficultyPress('easy')}
+            onPress={() => handleDifficultyPress('Easy')}
           />
           <DefaultButton
             text="Medium"
             textColor="#FFF"
             backgroundColor={themeContext.yellow}
             size="large"
-            onPress={() => handleDifficultyPress('medium')}
+            onPress={() => handleDifficultyPress('Medium')}
           />
           <DefaultButton
             text="Hard"
             textColor="#FFF"
             backgroundColor={themeContext.red}
             size="large"
-            onPress={() => handleDifficultyPress('hard')}
+            onPress={() => handleDifficultyPress('Hard')}
           />
         </View>
       </Container>

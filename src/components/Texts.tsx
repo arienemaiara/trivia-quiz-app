@@ -23,3 +23,21 @@ export const SubtitleSecondary = styled(DefaultText)`
   font-size: ${({ theme }) => theme.subtitleSize};
   text-align: center;
 `
+
+export const SecondaryText = styled(DefaultText)`
+  font-family: 'poppinsbold';
+  color: ${({ theme }) => theme.secondaryTextColor};
+  font-size: ${({ theme }) => theme.textSize};
+  text-align: center;
+`
+
+type CustomTextProps = {
+  textColor: string
+  fontSize: number
+}
+
+export const CustomText = styled.Text<CustomTextProps>`
+  font-family: 'poppinsbold';
+  color: ${(props) => props.textColor};
+  font-size: ${(props) => props.fontSize + 'px'};
+`

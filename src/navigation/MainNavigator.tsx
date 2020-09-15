@@ -7,14 +7,14 @@ import {
 import { NavigationContainer } from '@react-navigation/native'
 
 import InitialScreen from '../screens/InitialScreen'
-import ChooseDifficultScreen from '../screens/ChooseDifficultScreen'
+import ChooseDifficultScreen from '../screens/ChooseDifficultyScreen'
 import QuizScreen from '../screens/QuizScreen'
 import ResultScreen from '../screens/ResultScreen'
 
 export type StackParamList = {
   Initial: undefined
-  ChooseDifficult: undefined
-  Quiz: undefined
+  ChooseDifficulty: undefined
+  Quiz: { level: string }
   Result: undefined
 }
 
@@ -30,7 +30,7 @@ const MainNavigator = () => {
       <Stack.Navigator initialRouteName="Initial" screenOptions={options}>
         <Stack.Screen name="Initial" component={InitialScreen} />
         <Stack.Screen
-          name="ChooseDifficult"
+          name="ChooseDifficulty"
           component={ChooseDifficultScreen}
         />
         <Stack.Screen name="Quiz" component={QuizScreen} />
