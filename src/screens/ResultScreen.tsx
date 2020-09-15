@@ -33,6 +33,10 @@ const RESULT_EMOJI = [
 function ResultScreen({ navigation, route }: Props) {
   const themeContext = useContext(ThemeContext)
 
+  const handlePlayAgainPress = () => {
+    navigation.navigate('Initial')
+  }
+
   const QuestionResultItem = () => {
     return (
       <QuestionResult>
@@ -86,7 +90,7 @@ function ResultScreen({ navigation, route }: Props) {
           <QuestionResultItem />
           <QuestionResultItem />
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handlePlayAgainPress}>
           <Title>PLAY AGAIN?</Title>
         </TouchableOpacity>
       </Container>

@@ -8,7 +8,7 @@ type ButtonTextProps = {
 
 const ButtonText = styled.Text<ButtonTextProps>`
   font-size: ${(props) => props.fontSize + 'px'};
-  font-family: 'poppinsbold';
+  /* font-family: 'poppinsbold'; */
   color: ${(props) => props.textColor};
   text-align: center;
 `
