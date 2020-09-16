@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import React, { useContext } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { View, FlatList, TouchableOpacity } from 'react-native'
 import { ThemeContext } from 'styled-components'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { RouteProp } from '@react-navigation/native'
 
 import { StackParamList } from '../navigation/MainNavigator'
 import { Wrapper, Container, QuestionResult } from '../components/Wrappers'
@@ -11,9 +11,13 @@ import Right from '../components/icons/Right'
 import Wrong from '../components/icons/Wrong'
 import Ellipse from '../components/layout/Ellipse'
 
+import { replaceEncondedStrings } from '../utils/helpers'
+
+import { ApplicationState, QuestionAnswer } from '../store/types'
+import { restartGame } from '../store/actions'
+
 type Props = {
   navigation: StackNavigationProp<StackParamList, 'Result'>
-  route: RouteProp<StackParamList, 'Result'>
 }
 
 const RESULT_EMOJI = [
@@ -30,27 +34,40 @@ const RESULT_EMOJI = [
   { result: 10, emoji: '🥳' }
 ]
 
-function ResultScreen({ navigation, route }: Props) {
+function ResultScreen({ navigation }: Props) {
+  const dispatch = useDispatch()
   const themeContext = useContext(ThemeContext)
 
+  const { score, answers } = useSelector((state: ApplicationState) => state)
+
   const handlePlayAgainPress = () => {
+    dispatch(restartGame())
     navigation.navigate('Initial')
   }
 
-  const QuestionResultItem = () => {
+  const QuestionResultItem = (answer: QuestionAnswer) => {
     return (
       <QuestionResult>
         <View
           style={{
-            marginHorizontal: 5
+            marginRight: 10
           }}
         >
-          <Wrong size={32} color={themeContext.red} />
+          {answer.correct ? (
+            <Right size={32} color={themeContext.green} />
+          ) : (
+            <Wrong size={32} color={themeContext.red} />
+          )}
         </View>
-        <CustomText fontSize={13}>
-          In 1993 Swedish car manufacturer Saab experimented with replacing the
-          steering wheel with a joystick in a Saab 9000.
-        </CustomText>
+        <View
+          style={{
+            flex: 1
+          }}
+        >
+          <CustomText fontSize={13}>
+            {replaceEncondedStrings(answer.question)}
+          </CustomText>
+        </View>
       </QuestionResult>
     )
   }
@@ -80,19 +97,30 @@ function ResultScreen({ navigation, route }: Props) {
       <TopEllipse />
       <Container justifyContent="space-between">
         <View>
-          <Title>🥳</Title>
+          <Title>{RESULT_EMOJI.find((el) => el.result === score)?.emoji}</Title>
           <Subtitle>You scored</Subtitle>
-          <Subtitle>3 / 10</Subtitle>
+          <Subtitle>{score} / 10</Subtitle>
         </View>
-        <View>
-          <QuestionResultItem />
-          <QuestionResultItem />
-          <QuestionResultItem />
-          <QuestionResultItem />
+        <View
+          style={{
+            marginTop: 30,
+            flex: 1
+          }}
+        >
+          <FlatList
+            data={answers}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => QuestionResultItem(item)}
+            ListFooterComponent={
+              <TouchableOpacity
+                onPress={handlePlayAgainPress}
+                style={{ marginVertical: 20 }}
+              >
+                <Title>PLAY AGAIN?</Title>
+              </TouchableOpacity>
+            }
+          />
         </View>
-        <TouchableOpacity onPress={handlePlayAgainPress}>
-          <Title>PLAY AGAIN?</Title>
-        </TouchableOpacity>
       </Container>
     </Wrapper>
   )

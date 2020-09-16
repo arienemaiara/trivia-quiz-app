@@ -10,7 +10,9 @@ import { Wrapper, Container, QuestionBox } from '../components/Wrappers'
 import { Subtitle, SecondaryText, CustomText } from '../components/Texts'
 import { DefaultButton } from '../components/Buttons'
 
-import { ApplicationState } from '../store/types'
+import { replaceEncondedStrings } from '../utils/helpers'
+
+import { ApplicationState, QuizQuestion } from '../store/types'
 import {
   setNextQuestion,
   updateQuestionAnswer,
@@ -26,6 +28,7 @@ type Props = {
 function QuizScreen({ navigation, route }: Props) {
   const dispatch = useDispatch()
   const [difficulty, setDifficulty] = useState(route.params.level)
+  const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion>()
 
   const themeContext = useContext(ThemeContext)
 
@@ -40,7 +43,30 @@ function QuizScreen({ navigation, route }: Props) {
     dispatch(loadQuiz())
   }, [])
 
-  const handleAnswerPress = (answer: boolean) => {}
+  useEffect(() => {
+    setCurrentQuestion(quizQuestionList[currentQuestionIndex - 1])
+  }, [quizQuestionList, currentQuestionIndex])
+
+  const handleAnswerPress = (answer: string) => {
+    const isAnswerCorrect = currentQuestion?.correct_answer === answer
+
+    if (isAnswerCorrect) {
+      dispatch(updateScore(1))
+    }
+
+    dispatch(
+      updateQuestionAnswer({
+        correct: isAnswerCorrect,
+        question: currentQuestion?.question || ''
+      })
+    )
+
+    if (currentQuestionIndex === questionsQuantity) {
+      onLastQuestionAnswered()
+    } else {
+      dispatch(setNextQuestion())
+    }
+  }
 
   const onLastQuestionAnswered = () => {
     navigation.navigate('Result')
@@ -52,11 +78,13 @@ function QuizScreen({ navigation, route }: Props) {
         <View>
           <Subtitle>Entertainment: Video Games</Subtitle>
           <SecondaryText>Difficulty: {difficulty}</SecondaryText>
+
           <QuestionBox>
-            <CustomText textColor="white" fontSize={20}>
-              In 1993 Swedish car manufacturer Saab experimented with replacing
-              the steering wheel with a joystick in a Saab 9000.
-            </CustomText>
+            {currentQuestion && (
+              <CustomText textColor="white" fontSize={20}>
+                {replaceEncondedStrings(currentQuestion.question)}
+              </CustomText>
+            )}
           </QuestionBox>
           <DefaultButton
             text="True"
@@ -64,7 +92,7 @@ function QuizScreen({ navigation, route }: Props) {
             backgroundColor={themeContext.green}
             size="small"
             outline
-            onPress={() => handleAnswerPress(true)}
+            onPress={() => handleAnswerPress('True')}
           />
           <DefaultButton
             text="False"
@@ -72,7 +100,7 @@ function QuizScreen({ navigation, route }: Props) {
             backgroundColor={themeContext.red}
             size="small"
             outline
-            onPress={() => handleAnswerPress(false)}
+            onPress={() => handleAnswerPress('False')}
           />
         </View>
         <SecondaryText>

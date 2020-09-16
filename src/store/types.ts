@@ -10,7 +10,7 @@ export interface QuizQuestion {
 }
 
 export interface QuestionAnswer {
-  questionIndex: number
+  question: string
   correct: boolean
 }
 

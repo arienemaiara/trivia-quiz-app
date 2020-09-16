@@ -35,6 +35,11 @@ const reducer = (state = initialState, action: ApplicationAction) => {
         draft.difficulty = action.difficulty
       })
 
+    case 'updateQuestionAnswer':
+      return produce(state, (draft) => {
+        draft.answers.push(action.answer)
+      })
+
     case 'setNextQuestion':
       return produce(state, (draft) => {
         draft.currentQuestionIndex += 1
@@ -46,9 +51,7 @@ const reducer = (state = initialState, action: ApplicationAction) => {
       })
 
     case 'restartGame':
-      return produce(state, (draft) => {
-        draft = { ...initialState }
-      })
+      return initialState
 
     default:
       return state

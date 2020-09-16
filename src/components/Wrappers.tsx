@@ -26,7 +26,7 @@ export const QuestionBox = styled.View`
   border-radius: 8px;
 `
 export const QuestionResult = styled.View`
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: row;
   min-height: 90px;
