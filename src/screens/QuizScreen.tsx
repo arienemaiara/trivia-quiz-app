@@ -75,7 +75,7 @@ function QuizScreen({ navigation, route }: Props) {
 
   return (
     <>
-      {loading && <Loading color={themeContext.purple} />}
+      {loading && <Loading color={themeContext.blue} />}
       <Wrapper>
         <Container padding={30} justifyContent="space-between">
           <View>
