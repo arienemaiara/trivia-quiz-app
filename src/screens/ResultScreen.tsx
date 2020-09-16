@@ -64,7 +64,7 @@ function ResultScreen({ navigation }: Props) {
             flex: 1
           }}
         >
-          <CustomText fontSize={13}>
+          <CustomText fontSize={14}>
             {replaceEncondedStrings(answer.question)}
           </CustomText>
         </View>

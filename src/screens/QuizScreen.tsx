@@ -76,7 +76,7 @@ function QuizScreen({ navigation, route }: Props) {
     <Wrapper>
       <Container padding={30} justifyContent="space-between">
         <View>
-          <Subtitle>Entertainment: Video Games</Subtitle>
+          <Subtitle>{currentQuestion?.category}</Subtitle>
           <SecondaryText>Difficulty: {difficulty}</SecondaryText>
 
           <QuestionBox>

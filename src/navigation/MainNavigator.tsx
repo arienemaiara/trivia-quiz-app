@@ -21,7 +21,8 @@ export type StackParamList = {
 const Stack = createStackNavigator<StackParamList>()
 
 const options: StackNavigationOptions = {
-  headerShown: false
+  headerShown: false,
+  gestureEnabled: false
 }
 
 const MainNavigator = () => {

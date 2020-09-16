@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { AppLoading } from 'expo'
 import { Provider } from 'react-redux'
 import { applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
@@ -32,6 +33,10 @@ export default function App() {
 
     loadResourcesAndDataAsync()
   }, [])
+
+  if (!isLoadingComplete) {
+    return <AppLoading />
+  }
 
   return (
     <Provider store={store}>
