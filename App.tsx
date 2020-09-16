@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { StatusBar } from 'react-native'
 import { AppLoading } from 'expo'
 import { Provider } from 'react-redux'
 import { applyMiddleware, createStore } from 'redux'
@@ -41,6 +42,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={lightTheme}>
+        <StatusBar barStyle="dark-content" />
         <MainNavigator />
       </ThemeProvider>
     </Provider>

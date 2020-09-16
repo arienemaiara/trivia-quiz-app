@@ -1,8 +1,7 @@
 import React from 'react'
 import {
   createStackNavigator,
-  StackNavigationOptions,
-  StackNavigationProp
+  StackNavigationOptions
 } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 
